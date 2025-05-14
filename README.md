@@ -10,7 +10,7 @@
 ## Локальная установка
 
 ```
-git clone https://github.com/tanislavSol/user-api.git
+git clone https://github.com/StanislavSol/user-api.git
 cd user-api
 make install
 ```
