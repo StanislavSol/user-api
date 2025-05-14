@@ -6,14 +6,23 @@
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "44469724"
 	},
-	"item": [
-		{
-			"name": "New Request",
-			"request": {
-				"method": "GET",
-				"header": []
-			},
-			"response": []
-		}
-	]
+    "item": [
+    {
+      "name": "Registration",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n\t\"email\": \"test@example.com\",\n\t\"password\": \"password123\",\n\t\"gender\": \"male\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/registration",
+          "host": ["{{base_url}}"],
+          "path": ["api", "registration"]
+        }
+      },
+      "response": []
+    }
+  ]
 }

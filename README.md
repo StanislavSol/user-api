@@ -6,7 +6,6 @@
 
 - PHP 8.0+
 - Laravel 9.x
-- MySQL 5.7+
 
 ## Локальная установка
 
@@ -14,14 +13,12 @@
 git clone https://github.com/tanislavSol/user-api.git
 cd user-api
 make install
-
 ```
 
 ## Запуск приложения
 
 ```
 make start
-
 ```
 ## Документация API
 
