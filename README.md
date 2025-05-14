@@ -28,10 +28,10 @@ Postman коллекция: [UserAPI.postman_collection.json](/docs/UserAPI.post
 
 ## 1. Регистрация пользователя
 
-![Регистрация пользователя](screenshots/registration.png)  
+![Регистрация пользователя](screenshots/registration.jpg)  
 *POST /api/registration - регистрация нового пользователя*
 
 ## 2. Получение профиля
 
-![Запрос профиля](screenshots/profile_request.png)  
+![Запрос профиля](screenshots/profile_request.jpg)  
 *GET /api/profile - запрос данных профиля*
