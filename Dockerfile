@@ -1,20 +1,51 @@
-FROM php:8.2-cli
+# Используем официальный образ PHP с Apache
+FROM php:8.2-apache
 
+# Устанавливаем зависимости
 RUN apt-get update && apt-get install -y \
-    libpq-dev \
-    libzip-dev
-RUN docker-php-ext-install pdo pdo_pgsql zip
+    git \
+    zip \
+    unzip \
+    libzip-dev \
+    libpng-dev \
+    libonig-dev \
+    libxml2-dev \
+    && docker-php-ext-install \
+    pdo_mysql \
+    mbstring \
+    exif \
+    pcntl \
+    bcmath \
+    gd \
+    zip
 
+# Устанавливаем Composer
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
-    && php composer-setup.php --install-dir=/usr/local/bin --filename=composer \
-    && php -r "unlink('composer-setup.php');"
+# Копируем файлы проекта
+COPY . /var/www/html
 
-RUN curl -sL https://deb.nodesource.com/setup_20.x | bash -
-RUN apt-get install -y nodejs
+# Устанавливаем права
+RUN chown -R www-data:www-data /var/www/html \
+    && a2enmod rewrite
 
-WORKDIR /app
+# Устанавливаем зависимости Laravel
+RUN composer install --no-dev --optimize-autoloader
 
-COPY . .
-RUN composer install
-CMD ["bash", "-c", "php artisan migrate --force && php artisan serve --host=0.0.0.0 --port=$PORT"]
+# Копируем .env.production в .env (для Render)
+COPY .env.production .env
+
+# Генерируем ключ приложения
+RUN php artisan key:generate
+
+# Оптимизируем загрузку
+RUN php artisan optimize
+
+# Указываем рабочую директорию
+WORKDIR /var/www/html
+
+# Порт, который будет слушать Apache
+EXPOSE 80
+
+# Команда для запуска Apache
+CMD ["apache2-foreground"]
