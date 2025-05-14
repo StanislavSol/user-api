@@ -29,7 +29,7 @@ class AuthController extends Controller
          return response()->json([
              'message' => 'User registered successfully',
              'user' => $user,
-             'access_token' => $token,  // Добавляем токен в ответ
+             'access_token' => $token,
              'token_type' => 'Bearer',
          ], 201);
 
